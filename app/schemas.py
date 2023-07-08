@@ -1,11 +1,15 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
+from typing import Optional
 
 class Post(BaseModel):
     title : str
     content : str
     published : bool
  #   description : str
+
+class PostOut(Post):
+    user_id : int
 
 class User(BaseModel):
     email : str
@@ -22,3 +26,9 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    id: Optional[str] = None
