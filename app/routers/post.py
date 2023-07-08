@@ -19,19 +19,17 @@ def create_post(post: schemas.Post, db: Session = Depends(get_db), current_user:
 
     return {'data' : new_post}
 
-@router.get("/{id}")
+@router.get("/{id}", response_model=schemas.PostOut)
 def get_posts(id: str, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
     post = db.query(models.Post).filter(models.Post.id == id).first()
 
-    print(post)
     if not post : 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id {id} was not found")
 
     if post.user_id != current_user.id:
         return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized to get this post")
 
-    return {'data' : post}
-
+    return post
 
 @router.delete("/{id}")
 def delete_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
