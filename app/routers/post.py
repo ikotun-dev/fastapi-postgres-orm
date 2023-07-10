@@ -39,7 +39,7 @@ def get_posts(db: Session = Depends(get_db), current_user: int = Depends(oauth2.
 
     # if post.user_id != current_user.id:
     #     return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized to get this post")
-
+    # !=
     return posts
 
 @router.delete("/{id}")

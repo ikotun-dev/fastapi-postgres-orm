@@ -24,6 +24,7 @@ class Post(BaseModel):
  #   description : str
 
 class PostOut(Post):
+    id : int
     user_id : int
     owner : UserOut
 
@@ -37,3 +38,7 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[str] = None
+
+class Vote(BaseModel):
+    post_id : int
+    like_dir : int 
